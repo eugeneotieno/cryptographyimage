@@ -24,6 +24,9 @@ fun main() {
 
                     val encodedMsg = msg.encodeToByteArray()
                     val binaryList = convertToBinary(encodedMsg)
+                    binaryList.add("00000000")
+                    binaryList.add("00000000")
+                    binaryList.add("00000011")
 
                     val bufferedImage = ImageIO.read(File(inputName))
                     for (x in 0 until bufferedImage.width) {
