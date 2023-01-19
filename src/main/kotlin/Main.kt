@@ -14,10 +14,16 @@ fun main() {
                 println("Output image file:")
                 val outputName = readln()
 
+                println("Message to hide:")
+                val msg = readln()
+
                 try {
 
                     println("Input Image: $inputName")
                     println("Output Image: $outputName")
+
+                    val encodedMsg = msg.encodeToByteArray()
+                    val binaryList = convertToBinary(encodedMsg)
 
                     val bufferedImage = ImageIO.read(File(inputName))
                     for (x in 0 until bufferedImage.width) {
@@ -46,4 +52,19 @@ fun main() {
             else -> println("Wrong task: $action")
         }
     }
+}
+
+fun convertToBinary(byteArray: ByteArray): MutableList<String> {
+    val listArray = byteArray.map { Integer.toBinaryString(it.toInt() and 0xFF) }.toMutableList()
+    for (i in listArray.indices) {
+        var pad = ""
+        val padLength = 8 - listArray[i].length
+        repeat(padLength) {
+            pad += "0"
+        }
+        if (pad.isNotBlank()) {
+            listArray[i] = "$pad${listArray[i]}"
+        }
+    }
+    return listArray
 }
